@@ -78,9 +78,16 @@ namespace AkNotes.Services
             collectionNotas.DeleteOne(x=>x.ID == nota.ID);
         }
         //CRUD Usuario
-        public void InsertarUsuario(Usuario usuario)//Siempre que vayamos a agregar una nota se guarda aqui
+        public bool InsertarUsuario(Usuario usuario)//Siempre que vayamos a agregar una nota se guarda aqui
         {
+            if (UsuarioExiste(usuario.Username)) return false; 
             collectionUsuario.InsertOne(usuario);
+            return true;
+        }
+        public bool UsuarioExiste(string Username)//Siempre que vayamos a agregar una nota se guarda aqui
+        {
+            if (collectionUsuario.Find(n => n.Username == Username).ToList().Count() != 0) return true;
+            return false;
         }
         public Usuario GetUsuario(string _Nombre,string _PasswordSha256)
         {

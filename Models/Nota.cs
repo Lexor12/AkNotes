@@ -20,6 +20,8 @@ namespace AkNotes.Models
         public string Titulo {  get; set; }
         [BsonElement("Contenido")]
         public string Contenido { get; set; }
+        [BsonElement("Nota")]
+        public string _Nota { get; set; }
         [BsonElement("FechaCreacion")]
         public DateTime FechaCreacion { get; set; }
         [BsonElement("Tags")]
@@ -36,11 +38,13 @@ namespace AkNotes.Models
         //METODOS
         //Constructor
         public Nota() { }
-        public Nota(string _Titulo,string _Contenido,DateTime _FechaCreacion,List<string> _Tags,bool _Preferencia,string _UsuarioId)
+        public Nota(string _Titulo,string _Contenido,string _Nota,List<string> _Tags,bool _Preferencia,string _UsuarioId)
             {
                 Titulo = _Titulo;
                 Contenido = _Contenido;
-                FechaCreacion = _FechaCreacion;
+                this._Nota = _Nota;
+                FechaCreacion = DateTime.Now;
+                FechaModificacion = DateTime.Now;
                 Tags = _Tags;
                 Preferencia = _Preferencia;
                 UsuarioId = _UsuarioId; 
@@ -69,9 +73,9 @@ namespace AkNotes.Models
         {
             return AkNotesBDConnector.GetInstancia().GetListaDeNotasPorTag(Usuario, Tags);
         }
-        public void CrearNota(string _Titulo, string _Contenido, DateTime _FechaCreacion, List<string> _Tags, bool _Preferencia)
+        public void CrearNota(string _Titulo, string _Contenido, string _Nota, List<string> _Tags= null, bool _Preferencia = false)
         {
-            Nota nota = new Nota(_Titulo,_Contenido,_FechaCreacion,_Tags,_Preferencia,Usuario.Id);
+            Nota nota = new Nota(_Titulo,_Contenido, _Nota, _Tags,_Preferencia,Usuario.Id);
             AkNotesBDConnector.GetInstancia().InsertarNota(nota);
         }
         public void ModificarNota(Nota nota)

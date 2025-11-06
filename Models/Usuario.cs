@@ -39,15 +39,19 @@ namespace AkNotes.Models
     }
     internal class UsuarioDBManager
     {
-        public static void CrearUsuario(string _Username, string Password)
+        public static bool CrearUsuario(string _Username, string Password)
         {
             Usuario usuario = new Usuario(_Username,Password, DateTime.Now);
-            AkNotesBDConnector.GetInstancia().InsertarUsuario(usuario);
+            return AkNotesBDConnector.GetInstancia().InsertarUsuario(usuario);
         }
         public static Usuario IniciarSesion(string _Username, string Password)
         {
             Usuario usuario = AkNotesBDConnector.GetInstancia().GetUsuario(_Username,Password);
             return usuario;
+        }
+        public static bool UsuarioYaExiste(string _Username)
+        {
+            return AkNotesBDConnector.GetInstancia().UsuarioExiste(_Username);
         }
         public static string ConvertirASha256(string ingreso)
         {

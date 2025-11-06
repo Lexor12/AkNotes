@@ -7,7 +7,7 @@ namespace AkNotes
         public Form1()
         {
             InitializeComponent();
-            UsuarioDBManager.CrearUsuario("Prueba","12345");
+            
         }
     }
 }
