@@ -8,7 +8,7 @@
 
 ### ✨ Vista previa
 <p align="center">
-  <img src="images/cap1.png" alt="Captura" width="700"/>
+  <img src="images/capEjemploPrimero.png" alt="capEjemploPrimero" width="700"/>
 </p>
 
 ---
@@ -51,31 +51,48 @@ git clone https://github.com/tuusuario/AkNotes.git
 # Capturas de pantalla de la aplicación funcionando
 
 <p align="center">
-  <img src="images/cap2.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap3.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap4.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap5.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap6.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap7.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap8.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap9.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap10.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap11.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap12.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap13.png" alt="Captura" width="700"/>
-  <br>
-  <img src="images/cap14.png" alt="Captura" width="700"/>
+  <img src="images/cap2.png" alt="Captura 2" width="700"/>
+<br>
+<img src="images/cap3.png" alt="Captura 3" width="700"/>
+<br>
+<img src="images/cap4.png" alt="Captura 4" width="700"/>
+<br>
+<img src="images/cap5.png" alt="Captura 5" width="700"/>
+<br>
+<img src="images/cap6.png" alt="Captura 6" width="700"/>
+<br>
+<img src="images/cap7.png" alt="Captura 7" width="700"/>
+<br>
+<img src="images/cap8.png" alt="Captura 8" width="700"/>
+<br>
+<img src="images/cap9.png" alt="Captura 9" width="700"/>
+<br>
+<img src="images/cap10.png" alt="Captura 10" width="700"/>
+<br>
+<img src="images/cap11.png" alt="Captura 11" width="700"/>
+<br>
+<img src="images/cap12.png" alt="Captura 12" width="700"/>
+<br>
+<img src="images/cap13.png" alt="Captura 13" width="700"/>
+<br>
+<img src="images/cap14.png" alt="Captura 14" width="700"/>
+<br>
+<img src="images/cap15.png" alt="Captura 15" width="700"/>
+<br>
+<img src="images/cap16.png" alt="Captura 16" width="700"/>
+<br>
+<img src="images/cap17.png" alt="Captura 17" width="700"/>
+<br>
+<img src="images/cap18.png" alt="Captura 18" width="700"/>
+<br>
+<img src="images/cap19.png" alt="Captura 19" width="700"/>
+<br>
+<img src="images/cap20.png" alt="Captura 20" width="700"/>
+<br>
+<img src="images/cap21.png" alt="Captura 21" width="700"/>
+<br>
+<img src="images/cap22.png" alt="Captura 22" width="700"/>
+
 </p>
 
 ---
