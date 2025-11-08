@@ -8,7 +8,7 @@
 
 ### ✨ Vista previa
 <p align="center">
-  //<img src="images/cap1.png" alt="Captura" width="700"/>
+  <img src="images/cap1.png" alt="Captura" width="700"/>
 </p>
 
 ---
@@ -30,14 +30,13 @@ alojada en **MongoDB** en un servidor **remoto** controlado y gestionado mediant
 
 ---
 
-#### ⚙️ Instalación
+# ⚙️ Instalación
 
-#### 1️⃣ Clonar el repositorio desde un IDE
+### 1️⃣ Clonar el repositorio desde un IDE
 ```bash
 git clone https://github.com/tuusuario/AkNotes.git
 ```
-## Recomendamos usar Visual Studio 2022
-# Pasos:
+### Recomendamos usar Visual Studio 2022
 1. Abre Visual Studio 2022.
 2. Selecciona en "Clonar un repositorio".
 3. Selecciona la ruta de acceso donde se guardará el proyecto.
@@ -46,8 +45,11 @@ git clone https://github.com/tuusuario/AkNotes.git
 6. Presiona en clonar
 7. Ejecuta el proyecto una vez dentro de la solución del proyecto (Flecha verde)
 8. Prueba libremente cualquier sección del proyecto en ejecución.
+
 ---
-#### Capturas de pantalla de la aplicación funcionando
+
+# Capturas de pantalla de la aplicación funcionando
+
 <p align="center">
   <img src="images/cap2.png" alt="Captura" width="700"/>
   <br>
@@ -75,8 +77,10 @@ git clone https://github.com/tuusuario/AkNotes.git
   <br>
   <img src="images/cap14.png" alt="Captura" width="700"/>
 </p>
+
 ---
-#### Ejemplo de configuración de la cadena de conexión a 
+
+# Ejemplo de configuración de la cadena de conexión a 
 
 ```C#
 internal class BDConnector
