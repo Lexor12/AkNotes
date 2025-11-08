@@ -41,17 +41,21 @@ namespace AkNotes.Models
     {
         public static bool CrearUsuario(string _Username, string Password)
         {
-            Usuario usuario = new Usuario(_Username,Password, DateTime.Now);
+            Usuario usuario = new Usuario(ConvertirASha256(_Username), ConvertirASha256(Password), DateTime.Now);
             return AkNotesBDConnector.GetInstancia().InsertarUsuario(usuario);
         }
         public static Usuario IniciarSesion(string _Username, string Password)
         {
-            Usuario usuario = AkNotesBDConnector.GetInstancia().GetUsuario(_Username,Password);
+            Usuario usuario = AkNotesBDConnector.GetInstancia().GetUsuario(ConvertirASha256(_Username), ConvertirASha256(Password));
             return usuario;
         }
-        public static bool UsuarioYaExiste(string _Username)
+        public static bool UsuarioYaExiste(string _Username,string _Password)
         {
-            return AkNotesBDConnector.GetInstancia().UsuarioExiste(_Username);
+            return AkNotesBDConnector.GetInstancia().UsuarioExistePassword(ConvertirASha256(_Username),ConvertirASha256(_Password));
+        }
+        public static bool UsuarioYaExisteNombre(string _Username)
+        {
+            return AkNotesBDConnector.GetInstancia().UsuarioExisteNombre(ConvertirASha256(_Username));
         }
         public static string ConvertirASha256(string ingreso)
         {

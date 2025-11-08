@@ -1,6 +1,6 @@
 ﻿namespace AkNotes
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -37,6 +37,11 @@
             ClientSize = new Size(1264, 681);
             Name = "Form1";
             Text = "Form1";
+            // Deshabilitar botón maximizar
+            this.MaximizeBox = false;
+
+            // Fijar tamaño (no se puede redimensionar)
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             ResumeLayout(false);
         }
 

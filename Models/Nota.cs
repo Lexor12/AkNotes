@@ -23,7 +23,7 @@ namespace AkNotes.Models
         [BsonElement("Nota")]
         public string _Nota { get; set; }
         [BsonElement("FechaCreacion")]
-        public DateTime FechaCreacion { get; set; }
+        public string FechaCreacion { get; set; } = DateTime.Now.ToString();
         [BsonElement("Tags")]
         public List<string> Tags { get; set; }
         [BsonElement("Preferencia")]
@@ -34,7 +34,7 @@ namespace AkNotes.Models
         public string UsuarioId { get; set; } // Referencia al usuario
 
         [BsonElement("FechaModificacion")]
-        public DateTime FechaModificacion { get; set; } = DateTime.UtcNow;
+        public string FechaModificacion { get; set; } = DateTime.Now.ToString();
         //METODOS
         //Constructor
         public Nota() { }
@@ -43,8 +43,8 @@ namespace AkNotes.Models
                 Titulo = _Titulo;
                 Contenido = _Contenido;
                 this._Nota = _Nota;
-                FechaCreacion = DateTime.Now;
-                FechaModificacion = DateTime.Now;
+                FechaCreacion = DateTime.Now.ToString();
+                FechaModificacion = DateTime.Now.ToString();
                 Tags = _Tags;
                 Preferencia = _Preferencia;
                 UsuarioId = _UsuarioId; 

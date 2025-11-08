@@ -71,7 +71,7 @@ namespace AkNotes.Services
         }
         public void ActualizarNota(Nota nota)//Como siempre que se crea una nota ya se guarda, pues entonces ya tiene ID
         {
-            collectionNotas. ReplaceOne(x => x.ID == nota.ID,nota);
+            collectionNotas.ReplaceOne(x => x.ID == nota.ID,nota);
         }
         public void BorrarNota(Nota nota)
         {
@@ -80,11 +80,16 @@ namespace AkNotes.Services
         //CRUD Usuario
         public bool InsertarUsuario(Usuario usuario)//Siempre que vayamos a agregar una nota se guarda aqui
         {
-            if (UsuarioExiste(usuario.Username)) return false; 
+            if (UsuarioExistePassword(usuario.Username,usuario.Password)) return false; 
             collectionUsuario.InsertOne(usuario);
             return true;
         }
-        public bool UsuarioExiste(string Username)//Siempre que vayamos a agregar una nota se guarda aqui
+        public bool UsuarioExistePassword(string Username, string password)//Siempre que vayamos a agregar una nota se guarda aqui
+        {
+            if (collectionUsuario.Find(n => n.Username == Username &&n.Password == password ).ToList().Count() != 0) return true;
+            return false;
+        }
+        public bool UsuarioExisteNombre(string Username)//Siempre que vayamos a agregar una nota se guarda aqui
         {
             if (collectionUsuario.Find(n => n.Username == Username).ToList().Count() != 0) return true;
             return false;

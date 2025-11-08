@@ -1,6 +1,6 @@
 ﻿namespace AkNotes.Views.UserControls
 {
-    partial class UCInicio
+    partial class UCIniciarSesionCrearUsuario
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -26,12 +26,9 @@
         /// Método necesario para admitir el Diseñador. No se puede modificar
         /// el contenido de este método con el editor de código.
         /// </summary>
-        private void InitializeComponent()
-        {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        }
+        
 
         #endregion
+
     }
 }
