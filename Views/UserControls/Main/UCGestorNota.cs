@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AkNotes.Views.UserControls.Main
-{
+{//Mady by Lexor_12 || kennygamer17 on github
     internal enum UCGestorNotaOpciones
     {
         Crear,
         Editar,
-        Ver
+        Ver//Mady by Lexor_12 || kennygamer17 on github
     }
     internal partial class UCGestorNota : UserControl
-    {
+    {//Mady by Lexor_12 || kennygamer17 on github
         UCGestorNotaOpciones modo;
         private List<string> tagsSeleccionados = new List<string>();
         public event Action<UCGestorNota> btnAceptarPresionado = delegate { };
         public event Action<Nota> btnAceptarEditarPresionado = delegate { };
-        public event Action btnAceptarVolverPresionado = delegate { };
+        public event Action btnAceptarVolverPresionado = delegate { };//Mady by Lexor_12 || kennygamer17 on github
         Nota _nota;
         public UCGestorNota(UCGestorNotaOpciones modo, Nota _nota = null)
         {
@@ -32,7 +32,7 @@ namespace AkNotes.Views.UserControls.Main
             InitializeComponent();
             if (modo == UCGestorNotaOpciones.Ver) VistaDetalladaModo();
             else if (modo == UCGestorNotaOpciones.Editar) EditarModo();
-        }
+        }//Mady by Lexor_12 || kennygamer17 on github
         private void VistaDetalladaModo()
         {
             lblTituloUC.Text = "Vista detallada";
@@ -123,17 +123,17 @@ namespace AkNotes.Views.UserControls.Main
             ckbTrabajo.Enabled = false;
             btnAceptar.Text = "Volver";
 
-        }
+        }//Mady by Lexor_12 || kennygamer17 on github
         private void EditarModo()
         {
             lblTituloUC.Text = "Editar nota";
-            btnAceptar.Text = "Aceptar y editar";
+            btnAceptar.Text = "Aceptar y editar";//Mady by Lexor_12 || kennygamer17 on github
 
             txtTitulo.Text = _nota.Titulo;
 
             txtContenido.Text = _nota.Contenido;
 
-            txtNota.Text = _nota._Nota;
+            txtNota.Text = _nota._Nota;//Mady by Lexor_12 || kennygamer17 on github
 
             rdbtnImportante.Checked = _nota.Preferencia;
             rdbtnNoImportante.Checked = !_nota.Preferencia;
@@ -143,7 +143,7 @@ namespace AkNotes.Views.UserControls.Main
 
 
             // Marcar los tags de la nota
-            foreach (string tag in _nota.Tags)
+            foreach (string tag in _nota.Tags)//Mady by Lexor_12 || kennygamer17 on github
             {
                 switch (tag.ToLower())
                 {
@@ -170,7 +170,7 @@ namespace AkNotes.Views.UserControls.Main
                     case "proyecto":
                         ckbProyecto.Checked = true;
                         break;
-
+                    //Mady by Lexor_12 || kennygamer17 on github
                     case "urgente":
                         ckbUrgente.Checked = true;
                         break;
@@ -193,7 +193,7 @@ namespace AkNotes.Views.UserControls.Main
 
                     case "trabajo":
                         ckbTrabajo.Checked = true;
-                        break;
+                        break;//Mady by Lexor_12 || kennygamer17 on github
 
                     default:
                         Console.WriteLine($"Error, tag no encontrado: {tag}");
@@ -212,16 +212,16 @@ namespace AkNotes.Views.UserControls.Main
             btnAceptarPresionado.Invoke(this);
             if (modo == UCGestorNotaOpciones.Editar)
             {
-                _nota.Titulo = txtTitulo.Text;
+                _nota.Titulo = txtTitulo.Text;//Mady by Lexor_12 || kennygamer17 on github
                 _nota.Contenido = txtContenido.Text;
                 _nota._Nota = txtNota.Text;
-                _nota.Tags =ObtenerTags();
+                _nota.Tags =ObtenerTags();//Mady by Lexor_12 || kennygamer17 on github
                 _nota.Preferencia = rdbtnImportante.Checked;
                 _nota.FechaModificacion = DateTime.Now.ToString();
                 btnAceptarEditarPresionado.Invoke(_nota);
             }
             if (modo == UCGestorNotaOpciones.Ver) btnAceptarVolverPresionado.Invoke();
-        }
+        }//Mady by Lexor_12 || kennygamer17 on github
         public List<string> ObtenerTags()
         {
             List<string> tagsSeleccionados = new List<string>();

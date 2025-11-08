@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+//Mady by Lexor_12 || kennygamer17 on github
 namespace AkNotes.Views.UserControls
 {
     internal partial class UCListaNotas : UserControl
@@ -33,25 +33,25 @@ namespace AkNotes.Views.UserControls
             RecargarNotas(list);
         }
         private void RecargarNotas(List<Nota> lista)
-        {
+        {//Mady by Lexor_12 || kennygamer17 on github
             notas.Clear();
             dataGriedListaNotas.Controls.Clear();
             foreach (var nota in lista)
             {
                 notas.Add(nota);
             }
-            dataGriedListaNotas.DataSource = notas;
+            dataGriedListaNotas.DataSource = notas;//Mady by Lexor_12 || kennygamer17 on github
         }
         private void ConfigurarDataGridView()
         {
-            dataGriedListaNotas.Columns.Clear();
+            dataGriedListaNotas.Columns.Clear();//Mady by Lexor_12 || kennygamer17 on github
             dataGriedListaNotas.AutoGenerateColumns = false;
             dataGriedListaNotas.RowTemplate.Height = 55;
             dataGriedListaNotas.ColumnHeadersHeight = 40;
             dataGriedListaNotas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             DataGridViewTextBoxColumn colTitulo = new DataGridViewTextBoxColumn();
-            colTitulo.Name = "colTitulo";
+            colTitulo.Name = "colTitulo";//Mady by Lexor_12 || kennygamer17 on github
             colTitulo.HeaderText = "Titulo:";
             colTitulo.DataPropertyName = "Titulo";
             colTitulo.FillWeight = 70;
@@ -63,12 +63,12 @@ namespace AkNotes.Views.UserControls
             colFecha.FillWeight = 30;
             colFecha.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
             colFecha.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGriedListaNotas.Columns.Add(colFecha);
+            dataGriedListaNotas.Columns.Add(colFecha);//Mady by Lexor_12 || kennygamer17 on github
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (dataGriedListaNotas.SelectedRows.Count > 0)
+            if (dataGriedListaNotas.SelectedRows.Count > 0)//Mady by Lexor_12 || kennygamer17 on github
             {
                 Nota notaSeleccionada = (Nota)dataGriedListaNotas.SelectedRows[0].DataBoundItem;
                 manager.EliminarNota(notaSeleccionada);
@@ -78,7 +78,7 @@ namespace AkNotes.Views.UserControls
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
-        {
+        {//Mady by Lexor_12 || kennygamer17 on github
             if (dataGriedListaNotas.SelectedRows.Count > 0)
             {
                 Nota notaSeleccionada = (Nota)dataGriedListaNotas.SelectedRows[0].DataBoundItem;
@@ -87,7 +87,7 @@ namespace AkNotes.Views.UserControls
         }
 
         private void btnVista_Click(object sender, EventArgs e)
-        {
+        {//Mady by Lexor_12 || kennygamer17 on github
             if (dataGriedListaNotas.SelectedRows.Count > 0)
             {
                 Nota notaSeleccionada = (Nota)dataGriedListaNotas.SelectedRows[0].DataBoundItem;

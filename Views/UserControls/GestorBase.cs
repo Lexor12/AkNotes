@@ -17,8 +17,8 @@ namespace AkNotes.Views.UserControls
         public event Action CerrarSesionEsPresionado = delegate { };
         public event Action SalirEsPresionado = delegate { };
         private Usuario Usuario;
-        NotasManager manager;
-        public GestorBase(Usuario _Usuario)
+        NotasManager manager;//Mady by Lexor_12 || kennygamer17 on github
+        public GestorBase(Usuario _Usuario)//Mady by Lexor_12 || kennygamer17 on github
         {
             Usuario = _Usuario;
             manager = new NotasManager(Usuario);
@@ -32,12 +32,12 @@ namespace AkNotes.Views.UserControls
             UCGestorNota uc = new UCGestorNota(UCGestorNotaOpciones.Editar, _a);
             uc.btnAceptarEditarPresionado += (nota) =>
             {
-                manager.ModificarNota(nota);
+                manager.ModificarNota(nota);//Mady by Lexor_12 || kennygamer17 on github
                 ListarNotas();
             };
             AgregarControlAMain(uc);
         }
-        private void SeccionInicio()
+        private void SeccionInicio()//Mady by Lexor_12 || kennygamer17 on github
         {
             int i = manager.GetTodasLasNotas().Count();
             UCInicio uCInicio = new UCInicio(i.ToString());
@@ -47,7 +47,7 @@ namespace AkNotes.Views.UserControls
         {
             UCGestorNota uc = new UCGestorNota(UCGestorNotaOpciones.Ver, a);
             uc.btnAceptarVolverPresionado += ListarNotas;
-            AgregarControlAMain(uc);
+            AgregarControlAMain(uc);//Mady by Lexor_12 || kennygamer17 on github
         }
         private void CrearNota()
         {
@@ -65,12 +65,12 @@ namespace AkNotes.Views.UserControls
             uCInicio.VerNotaPresionado += (a) =>
             {
                 VerNota(a);
-            };
+            };//Mady by Lexor_12 || kennygamer17 on github
             AgregarControlAMain(uCInicio);
         }
         private void btnInicio_Click(object sender, EventArgs e)
         {
-            SeccionInicio();
+            SeccionInicio();//Mady by Lexor_12 || kennygamer17 on github
         }
         private void AgregarControlAMain(UserControl control)
         {
@@ -80,7 +80,7 @@ namespace AkNotes.Views.UserControls
 
         private void btnCrearNota_Click(object sender, EventArgs e)
         {
-            CrearNota();
+            CrearNota();//Mady by Lexor_12 || kennygamer17 on github
         }
 
         private void btnListarNotas_Click(object sender, EventArgs e)
@@ -102,12 +102,12 @@ namespace AkNotes.Views.UserControls
             string titulo = uc.txtTitulo.Text;
             string contenido = uc.txtContenido.Text;
             string notaTexto = uc.txtNota.Text;
-            List<string> tags = uc.ObtenerTags(); 
+            List<string> tags = uc.ObtenerTags(); //Mady by Lexor_12 || kennygamer17 on github
             bool preferencia = uc.rdbtnImportante.Checked; 
             manager.CrearNota(titulo, contenido, notaTexto, tags, preferencia);
 
             MessageBox.Show("Tarea creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ListarNotas();
+            ListarNotas();//Mady by Lexor_12 || kennygamer17 on github
         }
     }
 }

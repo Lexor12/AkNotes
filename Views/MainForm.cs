@@ -5,7 +5,7 @@ namespace AkNotes
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm()//Mady by Lexor_12 || kennygamer17 on github
         {
             InitializeComponent();
             MostrarPantallaLogin();
@@ -19,10 +19,10 @@ namespace AkNotes
             uc.BotonCambiarAOtroFormPresionado += OnCambiarPantalla;
 
             CargarControl(uc);
-        }
+        }//Mady by Lexor_12 || kennygamer17 on github
         private void MostrarPantallaRegistro()
         {
-            UCIniciarSesionCrearUsuario uc = new UCIniciarSesionCrearUsuario(UIUCIniciarSesionCrearUsuarioOpciones.Registro);
+            UCIniciarSesionCrearUsuario uc = new UCIniciarSesionCrearUsuario(UIUCIniciarSesionCrearUsuarioOpciones.Registro);//Mady by Lexor_12 || kennygamer17 on github
             uc.Dock = DockStyle.Fill;
 
             uc.BotonAceptarPresionado += OnRegistrarAceptar;
@@ -31,13 +31,13 @@ namespace AkNotes
         }
         private void OnLoginAceptar(UCIniciarSesionCrearUsuario modo)
         {
-            if (UsuarioDBManager.UsuarioYaExisteNombre(modo.txtUsuario.Text))
+            if (UsuarioDBManager.UsuarioYaExisteNombre(modo.txtUsuario.Text))//Mady by Lexor_12 || kennygamer17 on github
             {
                 if (UsuarioDBManager.UsuarioYaExiste(modo.txtUsuario.Text, modo.txtContrasena.Text))
                 {
                     Usuario usuario = UsuarioDBManager.IniciarSesion(modo.txtUsuario.Text, modo.txtContrasena.Text);
                     GestorBase uc = new GestorBase(usuario);
-                    uc.CerrarSesionEsPresionado += MostrarPantallaLogin;
+                    uc.CerrarSesionEsPresionado += MostrarPantallaLogin;//Mady by Lexor_12 || kennygamer17 on github
                     uc.SalirEsPresionado += () =>
                     {
                         this.Close();
@@ -48,7 +48,7 @@ namespace AkNotes
                 else
                 {
                     MessageBox.Show("Error, usuario no encontrado.");
-                    return;
+                    return;//Mady by Lexor_12 || kennygamer17 on github
                 }
             }
             else
@@ -113,9 +113,9 @@ namespace AkNotes
         {
             this.SuspendLayout();
             this.Controls.Clear();
-            this.Controls.Add(control);
+            this.Controls.Add(control);//Mady by Lexor_12 || kennygamer17 on github
             this.ResumeLayout(true);
-            this.Refresh();
+            this.Refresh();//Mady by Lexor_12 || kennygamer17 on github
         }
     }
 }

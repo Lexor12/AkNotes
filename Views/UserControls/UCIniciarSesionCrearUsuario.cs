@@ -17,7 +17,7 @@ namespace AkNotes.Views.UserControls
     }
     public partial class UCIniciarSesionCrearUsuario : UserControl
     {
-        //Atributos / Componentes
+        //Atributos / Componentes//Mady by Lexor_12 || kennygamer17 on github
         public event Action<UCIniciarSesionCrearUsuario> BotonAceptarPresionado = delegate { };
         public event Action<UCIniciarSesionCrearUsuario> BotonCambiarAOtroFormPresionado = delegate { };
         private Panel panelIzquierdo;
@@ -37,7 +37,7 @@ namespace AkNotes.Views.UserControls
         public UIUCIniciarSesionCrearUsuarioOpciones modoActual;
         public UCIniciarSesionCrearUsuario(UIUCIniciarSesionCrearUsuarioOpciones modo)
         {
-            modoActual = modo;
+            modoActual = modo;//Mady by Lexor_12 || kennygamer17 on github
             if (modo == UIUCIniciarSesionCrearUsuarioOpciones.IniciarSesion) IniciarSesion();
             else RegistrarUsuario();
         }
@@ -54,7 +54,7 @@ namespace AkNotes.Views.UserControls
             txtContrasena = new TextBox();
             lblUsuario = new Label();
             lblTituloFormulario = new Label();
-            btnAceptar = new Button();
+            btnAceptar = new Button();//Mady by Lexor_12 || kennygamer17 on github
             panelIzquierdo.SuspendLayout();
             panelDerecho.SuspendLayout();
             SuspendLayout();
@@ -63,7 +63,7 @@ namespace AkNotes.Views.UserControls
             // 
             panelIzquierdo.BackColor = Color.FromArgb(193, 203, 214);
             panelIzquierdo.Controls.Add(btnCambiarVentana);
-            panelIzquierdo.Controls.Add(lblInvitacionCambio);
+            panelIzquierdo.Controls.Add(lblInvitacionCambio);//Mady by Lexor_12 || kennygamer17 on github
             panelIzquierdo.Controls.Add(lblDescripcion);
             panelIzquierdo.Controls.Add(lblTituloPrincipal);
             panelIzquierdo.Dock = DockStyle.Left;
@@ -105,7 +105,7 @@ namespace AkNotes.Views.UserControls
             lblDescripcion.ForeColor = Color.FromArgb(74, 85, 97);
             lblDescripcion.Location = new Point(25, 155);
             lblDescripcion.MaximumSize = new Size(600, 0);
-            lblDescripcion.Name = "lblDescripcion";
+            lblDescripcion.Name = "lblDescripcion";//Mady by Lexor_12 || kennygamer17 on github
             lblDescripcion.Size = new Size(555, 95);
             lblDescripcion.TabIndex = 0;
             lblDescripcion.Text = "La aplicación para gestionar tus notas mejor valorada en la mente de Lexor_12.";
@@ -116,7 +116,7 @@ namespace AkNotes.Views.UserControls
             lblTituloPrincipal.Font = new Font("Segoe UI", 90F, FontStyle.Bold);
             lblTituloPrincipal.ForeColor = Color.FromArgb(38, 55, 69);
             lblTituloPrincipal.Location = new Point(3, 14);
-            lblTituloPrincipal.Name = "lblTituloPrincipal";
+            lblTituloPrincipal.Name = "lblTituloPrincipal";//Mady by Lexor_12 || kennygamer17 on github
             lblTituloPrincipal.Size = new Size(551, 159);
             lblTituloPrincipal.TabIndex = 0;
             lblTituloPrincipal.Text = "AkNotes";
@@ -146,7 +146,7 @@ namespace AkNotes.Views.UserControls
             btnAceptar.ForeColor = Color.White;
             btnAceptar.Location = new Point(185, 468);
             btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(206, 47);
+            btnAceptar.Size = new Size(206, 47);//Mady by Lexor_12 || kennygamer17 on github
             btnAceptar.TabIndex = 2;
             btnAceptar.Text = "Aceptar";
             btnAceptar.UseVisualStyleBackColor = false;
@@ -427,10 +427,10 @@ namespace AkNotes.Views.UserControls
         private void PresionoAceptar(object sender, EventArgs e)
         {
             BotonAceptarPresionado.Invoke(this);
-        }
+        }//Mady by Lexor_12 || kennygamer17 on github
         private void PresionoBotonCambiarForm(object sender, EventArgs e)
         {
             BotonCambiarAOtroFormPresionado.Invoke(this);
-        }
+        }//Mady by Lexor_12 || kennygamer17 on github
     }
 }

@@ -19,6 +19,6 @@ namespace AkNotes.Views.UserControls
             System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
             path.AddEllipse(0, 0, circlePanel.Width, circlePanel.Height);
             circlePanel.Region = new Region(path);
-        }
+        }//Mady by Lexor_12 || kennygamer17 on github
     }
 }

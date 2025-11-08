@@ -13,20 +13,20 @@ namespace AkNotes.Services
         private static BDConnector? _BDConnector = null;
         private MongoClient? _mongoClient;
         protected IMongoDatabase db;
-
+        //Mady by Lexor_12 || kennygamer17 on github
         protected BDConnector() 
         {
             string? MongoDBConn = Program.Configuration?["MongoDB:ConnectionString"];
             string? dbName = Program.Configuration?["MongoDB:DatabaseName"];
             _mongoClient = new MongoClient(MongoDBConn);
             db = _mongoClient.GetDatabase(dbName);
-        }
+        }//Mady by Lexor_12 || kennygamer17 on github
         public static BDConnector GetInstancia()
         {
             if ( _BDConnector == null)
             {
                 _BDConnector = new BDConnector();
-            }
+            }//Mady by Lexor_12 || kennygamer17 on github
             return _BDConnector;
         }
         public IMongoCollection<T> GetCollection<T>(string nombreCollection) 
@@ -34,7 +34,7 @@ namespace AkNotes.Services
             return db.GetCollection<T>(nombreCollection);   
         }
     }
-    internal class AkNotesBDConnector
+    internal class AkNotesBDConnector//Mady by Lexor_12 || kennygamer17 on github
     {
         private static AkNotesBDConnector? _AkNotesBDConnector = null;
         private static IMongoCollection<Nota> collectionNotas => BDConnector.GetInstancia().GetCollection<Nota>("Notas");
@@ -45,12 +45,12 @@ namespace AkNotes.Services
             if (_AkNotesBDConnector == null)
             {
                 _AkNotesBDConnector = new AkNotesBDConnector();
-            }
+            }//Mady by Lexor_12 || kennygamer17 on github
             return _AkNotesBDConnector;
         }
         //CRUD Nota
         public void InsertarNota(Nota nota)//Siempre que vayamos a agregar una nota se guarda aqui
-        {
+        {//Mady by Lexor_12 || kennygamer17 on github
             collectionNotas.InsertOne(nota);
         }
         public List<Nota> GetListaDeNotas(Usuario usuario)
@@ -77,8 +77,8 @@ namespace AkNotes.Services
         {
             collectionNotas.DeleteOne(x=>x.ID == nota.ID);
         }
-        //CRUD Usuario
-        public bool InsertarUsuario(Usuario usuario)//Siempre que vayamos a agregar una nota se guarda aqui
+        //CRUD Usuario//Mady by Lexor_12 || kennygamer17 on github
+        public bool InsertarUsuario(Usuario usuario)//Siempre que vayamos a agregar una nota se guarda aqui//Mady by Lexor_12 || kennygamer17 on github
         {
             if (UsuarioExistePassword(usuario.Username,usuario.Password)) return false; 
             collectionUsuario.InsertOne(usuario);
@@ -92,11 +92,11 @@ namespace AkNotes.Services
         public bool UsuarioExisteNombre(string Username)//Siempre que vayamos a agregar una nota se guarda aqui
         {
             if (collectionUsuario.Find(n => n.Username == Username).ToList().Count() != 0) return true;
-            return false;
+            return false;//Mady by Lexor_12 || kennygamer17 on github
         }
         public Usuario GetUsuario(string _Nombre,string _PasswordSha256)
         {
             return collectionUsuario.Find(x => x.Username == _Nombre && x.Password == _PasswordSha256).FirstOrDefault();
         }
-    }
+    }//Mady by Lexor_12 || kennygamer17 on github
 }

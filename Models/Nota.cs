@@ -14,17 +14,17 @@ namespace AkNotes.Models
     {
         [BsonId]  // Le dice a Mongo que este es el campo _id
         [BsonRepresentation(BsonType.ObjectId)] // Convierte el ObjectId al string automáticamente
-        //Atributos
+        //Atributos//Mady by Lexor_12 || kennygamer17 on github
         public string ID {  get; set; }//Este esta dado por MongoDB
         [BsonElement("Titulo")]
-        public string Titulo {  get; set; }
+        public string Titulo {  get; set; }//Mady by Lexor_12 || kennygamer17 on github
         [BsonElement("Contenido")]
         public string Contenido { get; set; }
         [BsonElement("Nota")]
         public string _Nota { get; set; }
-        [BsonElement("FechaCreacion")]
+        [BsonElement("FechaCreacion")]//Mady by Lexor_12 || kennygamer17 on github
         public string FechaCreacion { get; set; } = DateTime.Now.ToString();
-        [BsonElement("Tags")]
+        [BsonElement("Tags")]//Mady by Lexor_12 || kennygamer17 on github
         public List<string> Tags { get; set; }
         [BsonElement("Preferencia")]
         public bool Preferencia { get; set; } // true = importante, false = no importante
@@ -40,24 +40,24 @@ namespace AkNotes.Models
         public Nota() { }
         public Nota(string _Titulo,string _Contenido,string _Nota,List<string> _Tags,bool _Preferencia,string _UsuarioId)
             {
-                Titulo = _Titulo;
-                Contenido = _Contenido;
+                Titulo = _Titulo;//Mady by Lexor_12 || kennygamer17 on github
+            Contenido = _Contenido;
                 this._Nota = _Nota;
                 FechaCreacion = DateTime.Now.ToString();
                 FechaModificacion = DateTime.Now.ToString();
-                Tags = _Tags;
-                Preferencia = _Preferencia;
+                Tags = _Tags;//Mady by Lexor_12 || kennygamer17 on github
+            Preferencia = _Preferencia;
                 UsuarioId = _UsuarioId; 
             }
     }
-    internal class NotasManager
+    internal class NotasManager//Mady by Lexor_12 || kennygamer17 on github
     {
         //Atributos
         Usuario? Usuario;
-
+        //Mady by Lexor_12 || kennygamer17 on github
         //Metodos
-            //Constructor
-            public NotasManager(Usuario? usuario)
+        //Constructor
+        public NotasManager(Usuario? usuario)
             {
                 Usuario = usuario;
             }
@@ -66,10 +66,10 @@ namespace AkNotes.Models
             return AkNotesBDConnector.GetInstancia().GetListaDeNotasMasImportantes(Usuario);
         }
         public List<Nota> GetTodasLasNotas()
-        {
+        {//Mady by Lexor_12 || kennygamer17 on github
             return AkNotesBDConnector.GetInstancia().GetListaDeNotas(Usuario);
         }
-        public List<Nota> GetNotasTags(List<string> Tags)
+        public List<Nota> GetNotasTags(List<string> Tags)//Mady by Lexor_12 || kennygamer17 on github
         {
             return AkNotesBDConnector.GetInstancia().GetListaDeNotasPorTag(Usuario, Tags);
         }
@@ -82,11 +82,11 @@ namespace AkNotes.Models
         {
             AkNotesBDConnector.GetInstancia().ActualizarNota(nota);
         }
-        public void EliminarNota(Nota nota)
+        public void EliminarNota(Nota nota)//Mady by Lexor_12 || kennygamer17 on github
         {
             AkNotesBDConnector.GetInstancia().BorrarNota(nota);
         }
-        public Nota GetNota(string noteID) 
+        public Nota GetNota(string noteID) //Mady by Lexor_12 || kennygamer17 on github
         {
             return AkNotesBDConnector.GetInstancia().GetNotaPorID(noteID);
         }
