@@ -11,6 +11,7 @@ namespace AkNotes.Services
     internal class BDConnector
     {
         private static BDConnector? _BDConnector = null;
+        public event Action ErrorAlConectar = delegate { };
         private MongoClient? _mongoClient;
         protected IMongoDatabase db;
         //Mady by Lexor_12 || kennygamer17 on github
@@ -25,6 +26,7 @@ namespace AkNotes.Services
             }
             catch (Exception ex) 
             {
+                ErrorAlConectar.Invoke();  
                 MessageBox.Show("Error al conectar con la Base de datos:"+ex.Message);
             }
             
@@ -39,6 +41,7 @@ namespace AkNotes.Services
         }
         public IMongoCollection<T> GetCollection<T>(string nombreCollection) 
         {
+            ErrorAlConectar.Invoke();
             return db.GetCollection<T>(nombreCollection);   
         }
     }
@@ -99,7 +102,7 @@ namespace AkNotes.Services
 
 
                 List<Nota> todasNotas = new List<Nota>();
-                foreach (var item in collectionNotas.Find(_ => true).ToList()) 
+                foreach (var item in collectionNotas.Find(_ => _.Compartir == Compartir.Compartir).ToList()) 
                 {
                     if(item.UsuariosUsername.Contains(usuario.Username)) todasNotas.Add(item);
                 }

@@ -189,10 +189,10 @@
             radioButton1.Checked = true;
             radioButton1.Location = new Point(31, 557);
             radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(145, 19);
+            radioButton1.Size = new Size(120, 19);
             radioButton1.TabIndex = 11;
             radioButton1.TabStop = true;
-            radioButton1.Text = "Mostrar notas privadas";
+            radioButton1.Text = "Mostrar mis notas";
             radioButton1.UseVisualStyleBackColor = true;
             radioButton1.CheckedChanged += radioButton1_CheckedChanged;
             // 
