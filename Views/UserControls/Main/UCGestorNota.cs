@@ -1,4 +1,5 @@
 ﻿using AkNotes.Models;
+using AkNotes.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace AkNotes.Views.UserControls.Main
 {//Mady by Lexor_12 || kennygamer17 on github
@@ -24,18 +26,24 @@ namespace AkNotes.Views.UserControls.Main
         public event Action<UCGestorNota> btnAceptarPresionado = delegate { };
         public event Action<Nota> btnAceptarEditarPresionado = delegate { };
         public event Action btnAceptarVolverPresionado = delegate { };//Mady by Lexor_12 || kennygamer17 on github
-        Nota _nota;
-        public UCGestorNota(UCGestorNotaOpciones modo, Nota _nota = null)
+        public Nota _nota;
+        public string username;
+        public BindingList<string> Usuarios = new BindingList<string>();
+        public UCGestorNota(UCGestorNotaOpciones modo, Nota _nota = null,string username = "")
         {
+            this.username = username;
             this.modo = modo;
             this._nota = _nota;
             InitializeComponent();
+            ConfigurarDataGridView();
+            dgListaUsuarios.DataSource = Usuarios;
             if (modo == UCGestorNotaOpciones.Ver) VistaDetalladaModo();
             else if (modo == UCGestorNotaOpciones.Editar) EditarModo();
         }//Mady by Lexor_12 || kennygamer17 on github
         private void VistaDetalladaModo()
         {
             lblTituloUC.Text = "Vista detallada";
+            lblTituloUC.Font = new Font("Segoe UI", 54F, FontStyle.Bold);
             txtTitulo.Enabled = false;
             txtTitulo.Text = _nota.Titulo;
 
@@ -122,11 +130,46 @@ namespace AkNotes.Views.UserControls.Main
             ckbInspiracion.Enabled = false;
             ckbTrabajo.Enabled = false;
             btnAceptar.Text = "Volver";
+            lblCodigo.Text = _nota.ID;
+            lblCodigo.Enabled = true;
+            rdbCodigo.Checked = false;
+            rdbPrivado.Checked = false;
+            rdbPublico.Checked = false;
+            rdbLisUsuarios.Checked = false;
+            if (_nota.Compartir == Compartir.Publico) rdbPublico.Checked = true;
+            else if (_nota.Compartir == Compartir.Privado) rdbPrivado.Checked = true;
+            else if (_nota.Compartir == Compartir.Codigo) rdbCodigo.Checked = true;
+            else if (_nota.Compartir == Compartir.Compartir)
+            {
+                rdbLisUsuarios.Checked = true;
+
+                foreach (string a in _nota.UsuariosUsername)
+                {
+                    Usuarios.Add(a);
+
+                }
+                panelUsuario.Visible = true;
+                panelUsuario.Enabled = false;
+                txtNombreUsuario.Enabled = false;
+                dgListaUsuarios.Enabled = true;
+                btnAgregarUsuario.Enabled = false;
+                btnEliminarUsuario.Enabled = false;
+            }
+            rdbLisUsuarios.Enabled = false;
+            rdbCodigo.Enabled = false;
+            rdbPrivado.Enabled = false;
+            rdbPublico.Enabled = false;
+
+            Usuario usuario = AkNotesBDConnector.GetInstancia().GetUsuarioID(_nota.UsuarioId);
+            lblNombreUsuario.Text = usuario.Username;
+            panelUsuario.Enabled = true;
+            panelUsuario.Enabled = Visible;
 
         }//Mady by Lexor_12 || kennygamer17 on github
         private void EditarModo()
         {
             lblTituloUC.Text = "Editar nota";
+            lblTituloUC.Font = new Font("Segoe UI", 58F, FontStyle.Bold);
             btnAceptar.Text = "Aceptar y editar";//Mady by Lexor_12 || kennygamer17 on github
 
             txtTitulo.Text = _nota.Titulo;
@@ -200,6 +243,36 @@ namespace AkNotes.Views.UserControls.Main
                         break;
                 }
             }
+            rdbCodigo.Checked = false;
+            rdbPrivado.Checked = false;
+            rdbPublico.Checked = false;
+            rdbLisUsuarios.Checked = false;
+            if (_nota.Compartir == Compartir.Publico) rdbPublico.Checked = true;
+            else if (_nota.Compartir == Compartir.Privado) rdbPrivado.Checked = true;
+            else if (_nota.Compartir == Compartir.Codigo) rdbCodigo.Checked = true;
+            else if (_nota.Compartir == Compartir.Compartir)
+            {
+                rdbLisUsuarios.Checked = true;
+
+                foreach (string a in _nota.UsuariosUsername)
+                {
+                    Usuarios.Add(a);
+
+                }
+                panelUsuario.Visible = true;
+                panelUsuario.Enabled = true;
+            }
+            rdbLisUsuarios.Enabled = true;
+            rdbCodigo.Enabled = true;
+            rdbPrivado.Enabled = true;
+            rdbPublico.Enabled = true;
+
+            panelUsuario.Enabled = true;
+            panelUsuario.Enabled = Visible;
+            Usuario usuario = AkNotesBDConnector.GetInstancia().GetUsuarioID(_nota.UsuarioId);
+            lblNombreUsuario.Text = usuario.Username;
+            lblCodigo.Text = _nota.ID;
+            lblCodigo.Enabled = true;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -215,9 +288,22 @@ namespace AkNotes.Views.UserControls.Main
                 _nota.Titulo = txtTitulo.Text;//Mady by Lexor_12 || kennygamer17 on github
                 _nota.Contenido = txtContenido.Text;
                 _nota._Nota = txtNota.Text;
-                _nota.Tags =ObtenerTags();//Mady by Lexor_12 || kennygamer17 on github
+                _nota.Tags = ObtenerTags();//Mady by Lexor_12 || kennygamer17 on github
                 _nota.Preferencia = rdbtnImportante.Checked;
                 _nota.FechaModificacion = DateTime.Now.ToString();
+                if (rdbPublico.Checked) _nota.Compartir = Compartir.Publico;
+                else if (rdbCodigo.Checked) _nota.Compartir = Compartir.Codigo;
+                else if (rdbPrivado.Checked) _nota.Compartir = Compartir.Privado;
+                else if (rdbLisUsuarios.Checked)
+                {
+                    _nota.Compartir = Compartir.Compartir;
+                    List<string> strings = new List<string>();
+                    foreach (string user in Usuarios)
+                    {
+                        strings.Add(user);
+                    }
+                    _nota.UsuariosUsername = strings;
+                }
                 btnAceptarEditarPresionado.Invoke(_nota);
             }
             if (modo == UCGestorNotaOpciones.Ver) btnAceptarVolverPresionado.Invoke();
@@ -264,5 +350,98 @@ namespace AkNotes.Views.UserControls.Main
             return tagsSeleccionados;
         }
 
+        private void lblCodigo_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(lblCodigo.Text);
+            MessageBox.Show("Texto copiado al portapapeles", "Copiado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbLisUsuarios.Checked)
+            {
+                panelUsuario.Enabled = true;
+                panelUsuario.Visible = true;
+                return;
+            }
+            panelUsuario.Enabled = false;
+            panelUsuario.Visible = false;
+        }
+
+        private void btnAgregarUsuario_Click(object sender, EventArgs e)
+        {
+            if (!AkNotesBDConnector.GetInstancia().UsuarioExisteNombre(txtNombreUsuario.Text))
+            {
+                MessageBox.Show("ERROR: Usuario No Encontrado");
+            }
+            else
+            {
+                if (Usuarios.Contains(txtNombreUsuario.Text))
+                {
+                    MessageBox.Show("ERROR: Ese usuario ya esta dentro.");
+                    return;
+                }
+                if (txtNombreUsuario.Text == username)
+                {
+                    MessageBox.Show("ERROR: No puede agregarte a ti mismo.");
+                    return;
+                }
+                Usuarios.Add(txtNombreUsuario.Text);
+            }
+        }
+        private void ConfigurarDataGridView()
+        {
+            dgListaUsuarios.Columns.Clear();
+            dgListaUsuarios.AutoGenerateColumns = false; // ← Mantener en false
+
+            // Ajustes visuales
+            dgListaUsuarios.RowTemplate.Height = 40;
+            dgListaUsuarios.ColumnHeadersHeight = 35;
+            dgListaUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgListaUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgListaUsuarios.MultiSelect = false;
+            dgListaUsuarios.ReadOnly = true;
+            dgListaUsuarios.AllowUserToAddRows = false;
+            dgListaUsuarios.AllowUserToDeleteRows = false;
+
+            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
+            col.Name = "colUsuario";
+            col.HeaderText = "Usuario Compartido";
+            // NO pongas DataPropertyName
+
+            dgListaUsuarios.Columns.Add(col);
+
+            // Agregar este evento
+            dgListaUsuarios.CellFormatting += DgListaUsuarios_CellFormatting;
+        }
+
+        // Agregar este método nuevo
+        private void DgListaUsuarios_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < Usuarios.Count)
+            {
+                e.Value = Usuarios[e.RowIndex];
+                e.FormattingApplied = true;
+            }
+        }
+
+        private void btnEliminarUsuario_Click(object sender, EventArgs e)
+        {
+            if (dgListaUsuarios.SelectedRows.Count > 0)
+            {
+                int indice = dgListaUsuarios.SelectedRows[0].Index;
+
+                if (indice >= 0 && indice < Usuarios.Count)
+                {
+                    Usuarios.RemoveAt(indice); // ← Usar RemoveAt en lugar de Remove
+                }
+            }
+
+        }
+
+        private void txtNota_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

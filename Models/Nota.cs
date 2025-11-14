@@ -10,6 +10,13 @@ using System.Threading.Tasks;
 
 namespace AkNotes.Models
 {
+    internal enum Compartir
+    {
+        Publico,
+        Codigo,
+        Privado,
+        Compartir
+    }
     internal class Nota
     {
         [BsonId]  // Le dice a Mongo que este es el campo _id
@@ -26,6 +33,7 @@ namespace AkNotes.Models
         public string FechaCreacion { get; set; } = DateTime.Now.ToString();
         [BsonElement("Tags")]//Mady by Lexor_12 || kennygamer17 on github
         public List<string> Tags { get; set; }
+        
         [BsonElement("Preferencia")]
         public bool Preferencia { get; set; } // true = importante, false = no importante
 
@@ -35,19 +43,25 @@ namespace AkNotes.Models
 
         [BsonElement("FechaModificacion")]
         public string FechaModificacion { get; set; } = DateTime.Now.ToString();
+        [BsonElement("Compartir")]//Mady by Lexor_12 || kennygamer17 on github
+        public Compartir Compartir { get; set; }
+        [BsonElement("UsuariosUsername")]//Mady by Lexor_12 || kennygamer17 on github
+        public List<string> UsuariosUsername { get; set; }
         //METODOS
         //Constructor
         public Nota() { }
-        public Nota(string _Titulo,string _Contenido,string _Nota,List<string> _Tags,bool _Preferencia,string _UsuarioId)
+        public Nota(string _Titulo,string _Contenido,string _Nota,List<string> _Tags,bool _Preferencia,string _UsuarioId,Compartir _Compartir,List<string> _Usuarios)
             {
                 Titulo = _Titulo;//Mady by Lexor_12 || kennygamer17 on github
-            Contenido = _Contenido;
+                Contenido = _Contenido;
                 this._Nota = _Nota;
                 FechaCreacion = DateTime.Now.ToString();
                 FechaModificacion = DateTime.Now.ToString();
                 Tags = _Tags;//Mady by Lexor_12 || kennygamer17 on github
-            Preferencia = _Preferencia;
+                Preferencia = _Preferencia;
                 UsuarioId = _UsuarioId; 
+                Compartir = _Compartir;
+                UsuariosUsername = _Usuarios;
             }
     }
     internal class NotasManager//Mady by Lexor_12 || kennygamer17 on github
@@ -61,21 +75,17 @@ namespace AkNotes.Models
             {
                 Usuario = usuario;
             }
-        public List<Nota> GetNotasImportantes()
-        {
-            return AkNotesBDConnector.GetInstancia().GetListaDeNotasMasImportantes(Usuario);
-        }
         public List<Nota> GetTodasLasNotas()
         {//Mady by Lexor_12 || kennygamer17 on github
             return AkNotesBDConnector.GetInstancia().GetListaDeNotas(Usuario);
         }
-        public List<Nota> GetNotasTags(List<string> Tags)//Mady by Lexor_12 || kennygamer17 on github
-        {
-            return AkNotesBDConnector.GetInstancia().GetListaDeNotasPorTag(Usuario, Tags);
+        public List<Nota> GetTodasLasNotasCompartidas()
+        {//Mady by Lexor_12 || kennygamer17 on github
+            return AkNotesBDConnector.GetInstancia().GetListaDeNotasCompartidas(Usuario);
         }
-        public void CrearNota(string _Titulo, string _Contenido, string _Nota, List<string> _Tags= null, bool _Preferencia = false)
+        public void CrearNota(string _Titulo, string _Contenido, string _Nota, List<string> _Tags= null, bool _Preferencia = false, Compartir _Compartir = Compartir.Privado, List<string> _Usuarios = null)
         {
-            Nota nota = new Nota(_Titulo,_Contenido, _Nota, _Tags,_Preferencia,Usuario.Id);
+            Nota nota = new Nota(_Titulo,_Contenido, _Nota, _Tags,_Preferencia,Usuario.Id, _Compartir, _Usuarios);
             AkNotesBDConnector.GetInstancia().InsertarNota(nota);
         }
         public void ModificarNota(Nota nota)

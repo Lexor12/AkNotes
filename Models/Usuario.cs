@@ -31,7 +31,7 @@ namespace AkNotes.Models
             public Usuario(string _Username, string _Password, DateTime _FechaRegistro) 
             {
                 Username = _Username;//Mady by Lexor_12 || kennygamer17 on github
-            Password = _Password;
+                Password = _Password;
                 FechaRegistro = _FechaRegistro;
             }
         //Metodos
@@ -41,21 +41,21 @@ namespace AkNotes.Models
     {
         public static bool CrearUsuario(string _Username, string Password)
         {
-            Usuario usuario = new Usuario(ConvertirASha256(_Username), ConvertirASha256(Password), DateTime.Now);
+            Usuario usuario = new Usuario(_Username, ConvertirASha256(Password), DateTime.Now);
             return AkNotesBDConnector.GetInstancia().InsertarUsuario(usuario);//Mady by Lexor_12 || kennygamer17 on github
         }
         public static Usuario IniciarSesion(string _Username, string Password)
         {
-            Usuario usuario = AkNotesBDConnector.GetInstancia().GetUsuario(ConvertirASha256(_Username), ConvertirASha256(Password));
+            Usuario usuario = AkNotesBDConnector.GetInstancia().GetUsuario(_Username, ConvertirASha256(Password));
             return usuario;
         }//Mady by Lexor_12 || kennygamer17 on github
         public static bool UsuarioYaExiste(string _Username,string _Password)
         {
-            return AkNotesBDConnector.GetInstancia().UsuarioExistePassword(ConvertirASha256(_Username),ConvertirASha256(_Password));
+            return AkNotesBDConnector.GetInstancia().UsuarioExistePassword(_Username,ConvertirASha256(_Password));
         }//Mady by Lexor_12 || kennygamer17 on github
         public static bool UsuarioYaExisteNombre(string _Username)
         {
-            return AkNotesBDConnector.GetInstancia().UsuarioExisteNombre(ConvertirASha256(_Username));
+            return AkNotesBDConnector.GetInstancia().UsuarioExisteNombre(_Username);
         }//Mady by Lexor_12 || kennygamer17 on github
         public static string ConvertirASha256(string ingreso)
         {

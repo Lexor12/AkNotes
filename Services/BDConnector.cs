@@ -16,10 +16,18 @@ namespace AkNotes.Services
         //Mady by Lexor_12 || kennygamer17 on github
         protected BDConnector() 
         {
-            string? MongoDBConn = Program.Configuration?["MongoDB:ConnectionString"];
-            string? dbName = Program.Configuration?["MongoDB:DatabaseName"];
-            _mongoClient = new MongoClient(MongoDBConn);
-            db = _mongoClient.GetDatabase(dbName);
+            try
+            {
+                string? MongoDBConn = Program.Configuration?["MongoDB:ConnectionString"];
+                string? dbName = Program.Configuration?["MongoDB:DatabaseName"];
+                _mongoClient = new MongoClient(MongoDBConn);
+                db = _mongoClient.GetDatabase(dbName);
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Error al conectar con la Base de datos:"+ex.Message);
+            }
+            
         }//Mady by Lexor_12 || kennygamer17 on github
         public static BDConnector GetInstancia()
         {
@@ -51,52 +59,192 @@ namespace AkNotes.Services
         //CRUD Nota
         public void InsertarNota(Nota nota)//Siempre que vayamos a agregar una nota se guarda aqui
         {//Mady by Lexor_12 || kennygamer17 on github
-            collectionNotas.InsertOne(nota);
+            try
+            {
+                collectionNotas.InsertOne(nota);
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+            }
         }
         public List<Nota> GetListaDeNotas(Usuario usuario)
         {
-            return collectionNotas.Find(n => n.UsuarioId == usuario.Id).ToList();
+            try
+            {
+                return collectionNotas.Find(n => n.UsuarioId == usuario.Id).ToList();
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return new List<Nota>();
+            }
+        }
+        public List<Nota> GetListaDeNotasPublicas()
+        {
+            try
+            {
+                return collectionNotas.Find(n => n.Compartir == Compartir.Publico).ToList();
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return new List<Nota>();
+            }
+        }
+        public List<Nota> GetListaDeNotasCompartidas(Usuario usuario)
+        {
+            try
+            {
+
+
+                List<Nota> todasNotas = new List<Nota>();
+                foreach (var item in collectionNotas.Find(_ => true).ToList()) 
+                {
+                    if(item.UsuariosUsername.Contains(usuario.Username)) todasNotas.Add(item);
+                }
+                return todasNotas;
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return new List<Nota>();
+            }
         }
         public Nota GetNotaPorID(string ID)
         {
-            return collectionNotas.Find(n => n.UsuarioId == ID).FirstOrDefault();
+            try
+            {
+                return collectionNotas.Find(n => n.UsuarioId == ID).FirstOrDefault();
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return null;
+            }
+        }
+        public Nota GetNotaPorIDNota(string ID)
+        {
+            try
+            {
+                return collectionNotas.Find(n => n.ID == ID && n.Compartir == Compartir.Codigo).FirstOrDefault();
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return null;
+            }
         }
         public List<Nota> GetListaDeNotasMasImportantes(Usuario usuario)
         {
-            return collectionNotas.Find(n => n.UsuarioId == usuario.Id && n.Preferencia == true).ToList();
+            try
+            {
+                return collectionNotas.Find(n => n.UsuarioId == usuario.Id && n.Preferencia == true).ToList();
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return new List<Nota>();
+            }
         }
         public List<Nota> GetListaDeNotasPorTag(Usuario usuario,List<string> tags)
         {
-            return collectionNotas.Find(n => n.UsuarioId == usuario.Id && n.Tags.Any(tag => tags.Contains(tag))).ToList();
+            try
+            {
+                return collectionNotas.Find(n => n.UsuarioId == usuario.Id && n.Tags.Any(tag => tags.Contains(tag))).ToList();
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return new List<Nota>();
+            }
         }
         public void ActualizarNota(Nota nota)//Como siempre que se crea una nota ya se guarda, pues entonces ya tiene ID
         {
-            collectionNotas.ReplaceOne(x => x.ID == nota.ID,nota);
+            try
+            {
+                collectionNotas.ReplaceOne(x => x.ID == nota.ID,nota);
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+            }
         }
         public void BorrarNota(Nota nota)
         {
-            collectionNotas.DeleteOne(x=>x.ID == nota.ID);
+            try
+            {
+                collectionNotas.DeleteOne(x=>x.ID == nota.ID);
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+            }
         }
         //CRUD Usuario//Mady by Lexor_12 || kennygamer17 on github
         public bool InsertarUsuario(Usuario usuario)//Siempre que vayamos a agregar una nota se guarda aqui//Mady by Lexor_12 || kennygamer17 on github
         {
-            if (UsuarioExistePassword(usuario.Username,usuario.Password)) return false; 
-            collectionUsuario.InsertOne(usuario);
-            return true;
+            try
+            {
+                if (UsuarioExistePassword(usuario.Username,usuario.Password)) return false; 
+                collectionUsuario.InsertOne(usuario);
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return false;
+            }
         }
         public bool UsuarioExistePassword(string Username, string password)//Siempre que vayamos a agregar una nota se guarda aqui
         {
-            if (collectionUsuario.Find(n => n.Username == Username &&n.Password == password ).ToList().Count() != 0) return true;
-            return false;
+            try
+            {
+                if (collectionUsuario.Find(n => n.Username == Username &&n.Password == password ).ToList().Count() != 0) return true;
+                return false;
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return false;
+            }
         }
         public bool UsuarioExisteNombre(string Username)//Siempre que vayamos a agregar una nota se guarda aqui
         {
-            if (collectionUsuario.Find(n => n.Username == Username).ToList().Count() != 0) return true;
-            return false;//Mady by Lexor_12 || kennygamer17 on github
+            try
+            {
+                if (collectionUsuario.Find(n => n.Username == Username).ToList().Count() != 0) return true;
+                return false;//Mady by Lexor_12 || kennygamer17 on github
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return false;
+            }
         }
         public Usuario GetUsuario(string _Nombre,string _PasswordSha256)
         {
-            return collectionUsuario.Find(x => x.Username == _Nombre && x.Password == _PasswordSha256).FirstOrDefault();
+            try
+            {
+                return collectionUsuario.Find(x => x.Username == _Nombre && x.Password == _PasswordSha256).FirstOrDefault();
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return null;
+            }
+        }
+        public Usuario GetUsuarioID(string id)
+        {
+            try
+            {
+                return collectionUsuario.Find(x => x.Id == id).FirstOrDefault();
+            }
+            catch
+            {
+                MessageBox.Show("Error al conectar a la base de datos, verifica tu conexión a internet y/o intentalo más tarde");
+                return null;
+            }
         }
     }//Mady by Lexor_12 || kennygamer17 on github
 }

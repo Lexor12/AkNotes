@@ -1,4 +1,5 @@
 ﻿using AkNotes.Models;
+using AkNotes.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,8 +30,26 @@ namespace AkNotes.Views.UserControls
 
         private void btnRecargar_Click(object sender, EventArgs e)
         {
-            List<Nota> list = manager.GetTodasLasNotas();
-            RecargarNotas(list);
+            if (radioButton1.Checked)
+            {
+                var notas = manager.GetTodasLasNotas();
+                RecargarNotas(notas);
+                btnEditar.Enabled = true;
+                btnEliminar.Enabled = true;
+            }
+            if (radioButton2.Checked)
+            {
+                var notas = manager.GetTodasLasNotasCompartidas();
+                RecargarNotas(notas);
+                btnEditar.Enabled = true;
+                btnEliminar.Enabled = false;
+            }
+            if (radioButton4.Checked)
+            {
+                RecargarNotas(AkNotesBDConnector.GetInstancia().GetListaDeNotasPublicas());
+                btnEditar.Enabled = false;
+                btnEliminar.Enabled = false;
+            }
         }
         private void RecargarNotas(List<Nota> lista)
         {//Mady by Lexor_12 || kennygamer17 on github
@@ -72,7 +91,7 @@ namespace AkNotes.Views.UserControls
             {
                 Nota notaSeleccionada = (Nota)dataGriedListaNotas.SelectedRows[0].DataBoundItem;
                 manager.EliminarNota(notaSeleccionada);
-                RecargarNotas(manager.GetTodasLasNotas());
+                btnRecargar_Click(sender,e);
 
             }
         }
@@ -83,6 +102,7 @@ namespace AkNotes.Views.UserControls
             {
                 Nota notaSeleccionada = (Nota)dataGriedListaNotas.SelectedRows[0].DataBoundItem;
                 EditarNotaPresionado.Invoke(notaSeleccionada);
+                btnRecargar_Click(sender, e);
             }
         }
 
@@ -97,14 +117,75 @@ namespace AkNotes.Views.UserControls
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string buscadorTexto = txtBuscar.Text;
-            var notas = manager.GetTodasLasNotas();
-            List<Nota> lista = new List<Nota>();
-            foreach (Nota nota in notas) 
+            List<Nota> listaFiltrada = new List<Nota>() ;
+            if (radioButton1.Checked)
             {
-                if (nota.Titulo.ToLower().Contains(buscadorTexto.ToLower())) lista.Add(nota);
+                var notasA = manager.GetTodasLasNotas();
+                 listaFiltrada = notasA.Where(n => n.Titulo.ToLower().Contains(txtBuscar.Text.ToLower())).ToList();
             }
-            RecargarNotas(lista);
+            if (radioButton2.Checked)
+            {
+                var notasA = manager.GetTodasLasNotasCompartidas();
+                 listaFiltrada = notasA.Where(n => n.Titulo.ToLower().Contains(txtBuscar.Text.ToLower())).ToList();
+            }
+            if (radioButton4.Checked)
+            {
+                var notasA = AkNotesBDConnector.GetInstancia().GetListaDeNotasPublicas();
+                listaFiltrada = notasA.Where(n => n.Titulo.ToLower().Contains(txtBuscar.Text.ToLower())).ToList();
+            }
+            RecargarNotas(listaFiltrada);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (txtBuscar.Text.Length != 24)
+            {
+                MessageBox.Show("Código incorrecto.");
+            }
+            else
+            {
+                Nota nota = AkNotesBDConnector.GetInstancia().GetNotaPorIDNota(txtBuscar.Text);
+                if (nota != null)
+                {
+                    VerNotaPresionado.Invoke(nota);
+                }
+                else
+                {
+                    MessageBox.Show("Nota no encontrada.");
+                }
+            }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                var notas = manager.GetTodasLasNotas();
+                RecargarNotas(notas);
+                btnEditar.Enabled = true;
+                btnEliminar.Enabled = true;
+            }
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton4.Checked)
+            {
+                RecargarNotas(AkNotesBDConnector.GetInstancia().GetListaDeNotasPublicas());
+                btnEditar.Enabled = false;
+                btnEliminar.Enabled = false;    
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                var notas = manager.GetTodasLasNotasCompartidas();
+                RecargarNotas(notas);
+                btnEditar.Enabled = true;
+                btnEliminar.Enabled = false;
+            }
         }
     }
 }

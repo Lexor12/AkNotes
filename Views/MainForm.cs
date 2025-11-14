@@ -31,30 +31,47 @@ namespace AkNotes
         }
         private void OnLoginAceptar(UCIniciarSesionCrearUsuario modo)
         {
-            if (UsuarioDBManager.UsuarioYaExisteNombre(modo.txtUsuario.Text))//Mady by Lexor_12 || kennygamer17 on github
+            try
             {
-                if (UsuarioDBManager.UsuarioYaExiste(modo.txtUsuario.Text, modo.txtContrasena.Text))
+                if (!esIngresoUsername(modo.txtUsuario.Text))
                 {
-                    Usuario usuario = UsuarioDBManager.IniciarSesion(modo.txtUsuario.Text, modo.txtContrasena.Text);
-                    GestorBase uc = new GestorBase(usuario);
-                    uc.CerrarSesionEsPresionado += MostrarPantallaLogin;//Mady by Lexor_12 || kennygamer17 on github
-                    uc.SalirEsPresionado += () =>
+                    MessageBox.Show("Error, el nombre de ususario debe ser mayor a 5 caracteres y solo puede contener letras.");
+                    return;
+                }
+                if (!esIngresoContraseña(modo.txtContrasena.Text))
+                {
+                    MessageBox.Show("Error, la contraseña debe ser mayor a 8 caracteres y estos deben ser números, letras, '@' o '_'.");
+                    return;
+                }
+                if (UsuarioDBManager.UsuarioYaExisteNombre(modo.txtUsuario.Text))//Mady by Lexor_12 || kennygamer17 on github
+                {
+                    if (UsuarioDBManager.UsuarioYaExiste(modo.txtUsuario.Text, modo.txtContrasena.Text))
                     {
-                        this.Close();
-                    };
-                    uc.Dock = DockStyle.Fill;
-                    CargarControl(uc);
+                        Usuario usuario = UsuarioDBManager.IniciarSesion(modo.txtUsuario.Text, modo.txtContrasena.Text);
+                        GestorBase uc = new GestorBase(usuario);
+                        uc.CerrarSesionEsPresionado += MostrarPantallaLogin;//Mady by Lexor_12 || kennygamer17 on github
+                        uc.SalirEsPresionado += () =>
+                        {
+                            this.Close();
+                        };
+                        uc.Dock = DockStyle.Fill;
+                        CargarControl(uc);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error, usuario no encontrado.");
+                        return;//Mady by Lexor_12 || kennygamer17 on github
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Error, usuario no encontrado.");
-                    return;//Mady by Lexor_12 || kennygamer17 on github
+                    return;
                 }
             }
-            else
+            catch(Exception ex) 
             {
-                MessageBox.Show("Error, usuario no encontrado.");
-                return;
+                MessageBox.Show("Un error inesperado ha ocurrido, vuelve a intentarlo mas tarde.");
             }
         }
         private bool esIngresoCaracter(string ingreso)
@@ -66,6 +83,18 @@ namespace AkNotes
             foreach (var usuario in ingreso)
             {
                 if(!Char.IsLetter(usuario))return false;
+            }
+            return true;
+        }
+        private bool esIngresoUsername(string ingreso)
+        {
+            if (ingreso.Length < 5)
+            {
+                return false;
+            }
+            foreach (var usuario in ingreso)
+            {
+                if (!Char.IsLetter(usuario) && !Char.IsNumber(usuario) && usuario != '_') return false;
             }
             return true;
         }
@@ -83,26 +112,33 @@ namespace AkNotes
         }
         private void OnRegistrarAceptar(UCIniciarSesionCrearUsuario modo)
         {
-            if (!esIngresoCaracter(modo.txtUsuario.Text))
+            try
             {
-                MessageBox.Show("Error, el nombre de ususario debe ser mayor a 5 caracteres y solo puede contener letras.");
-                return;
+                if (!esIngresoUsername(modo.txtUsuario.Text))
+                {
+                    MessageBox.Show("Error, el nombre de ususario debe ser mayor a 5 caracteres y solo puede contener letras.");
+                    return;
+                }
+                if (!esIngresoContraseña(modo.txtContrasena.Text))
+                {
+                    MessageBox.Show("Error, la contraseña debe ser mayor a 8 caracteres y estos deben ser números, letras, '@' o '_'.");
+                    return;
+                }
+                if (UsuarioDBManager.UsuarioYaExisteNombre(modo.txtUsuario.Text))
+                {
+                    MessageBox.Show("Error, ese nombré de usuario ya existe.");
+                    return;
+                }
+                else
+                {
+                    UsuarioDBManager.CrearUsuario(modo.txtUsuario.Text, modo.txtContrasena.Text);
+                }
+                MostrarPantallaLogin();
             }
-            if (!esIngresoContraseña(modo.txtContrasena.Text))
+            catch (Exception ex)
             {
-                MessageBox.Show("Error, la contraseña debe ser mayor a 8 caracteres y estos deben ser números, letras, '@' o '_'.");
-                return;
+                MessageBox.Show("Un error inesperado ha ocurrido, vuelve a intentarlo mas tarde.");
             }
-            if (UsuarioDBManager.UsuarioYaExisteNombre(modo.txtUsuario.Text))
-            {
-                MessageBox.Show("Error, ese nombré de usuario ya existe.");
-                return;
-            }
-            else
-            {
-                UsuarioDBManager.CrearUsuario(modo.txtUsuario.Text, modo.txtContrasena.Text);
-            }
-            MostrarPantallaLogin();
         }
         private void OnCambiarPantalla(UCIniciarSesionCrearUsuario modo)
         {

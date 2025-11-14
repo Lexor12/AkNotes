@@ -123,9 +123,9 @@
             lblFecha.ForeColor = Color.FromArgb(85, 102, 119);
             lblFecha.Location = new Point(88, 452);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(321, 37);
+            lblFecha.Size = new Size(318, 37);
             lblFecha.TabIndex = 7;
-            lblFecha.Text = DateTime.Now.ToString();
+            lblFecha.Text = "11/11/2025 01:34:27 p. m.";
             // 
             // UCInicio
             // 

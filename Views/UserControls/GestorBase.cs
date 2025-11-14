@@ -1,5 +1,6 @@
 ﻿using AkNotes.Models;
 using AkNotes.Views.UserControls.Main;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +24,7 @@ namespace AkNotes.Views.UserControls
             Usuario = _Usuario;
             manager = new NotasManager(Usuario);
             InitializeComponent();
+            lblNombreUsuario.Text = Usuario.Username;
             int i = manager.GetTodasLasNotas().Count();
             UCInicio uCInicio = new UCInicio(i.ToString());
             this.PanelMain.Controls.Add(uCInicio);
@@ -35,6 +37,7 @@ namespace AkNotes.Views.UserControls
                 manager.ModificarNota(nota);//Mady by Lexor_12 || kennygamer17 on github
                 ListarNotas();
             };
+            uc.username = Usuario.Username;
             AgregarControlAMain(uc);
         }
         private void SeccionInicio()//Mady by Lexor_12 || kennygamer17 on github
@@ -46,12 +49,14 @@ namespace AkNotes.Views.UserControls
         private void VerNota(Nota a)
         {
             UCGestorNota uc = new UCGestorNota(UCGestorNotaOpciones.Ver, a);
+            uc.username = Usuario.Username;
             uc.btnAceptarVolverPresionado += ListarNotas;
             AgregarControlAMain(uc);//Mady by Lexor_12 || kennygamer17 on github
         }
         private void CrearNota()
         {
             UCGestorNota uCInicio = new UCGestorNota(UCGestorNotaOpciones.Crear);
+            uCInicio.username = Usuario.Username;
             uCInicio.btnAceptarPresionado += CrearNota;
             AgregarControlAMain(uCInicio);
         }
@@ -103,8 +108,21 @@ namespace AkNotes.Views.UserControls
             string contenido = uc.txtContenido.Text;
             string notaTexto = uc.txtNota.Text;
             List<string> tags = uc.ObtenerTags(); //Mady by Lexor_12 || kennygamer17 on github
-            bool preferencia = uc.rdbtnImportante.Checked; 
-            manager.CrearNota(titulo, contenido, notaTexto, tags, preferencia);
+            bool preferencia = uc.rdbtnImportante.Checked;
+            Compartir compartir = new Compartir();
+            List<string> strings = new List<string>();
+            if (uc.rdbPublico.Checked) compartir = Compartir.Publico;
+            else if (uc.rdbCodigo.Checked) compartir = Compartir.Codigo;
+            else if (uc.rdbPrivado.Checked) compartir = Compartir.Privado;
+            else if (uc.rdbLisUsuarios.Checked)
+            {
+                compartir = Compartir.Compartir;
+                foreach (string user in uc.Usuarios)
+                {
+                    strings.Add(user);
+                }
+            }
+            manager.CrearNota(titulo, contenido, notaTexto, tags, preferencia, compartir, strings);
 
             MessageBox.Show("Tarea creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ListarNotas();//Mady by Lexor_12 || kennygamer17 on github

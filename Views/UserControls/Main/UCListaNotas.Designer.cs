@@ -37,6 +37,10 @@
             dataGriedListaNotas = new DataGridView();
             panel1 = new Panel();
             btnVista = new Button();
+            button1 = new Button();
+            radioButton1 = new RadioButton();
+            radioButton4 = new RadioButton();
+            radioButton2 = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)dataGriedListaNotas).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -57,7 +61,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = Color.FromArgb(33, 47, 60);
-            label2.Location = new Point(702, 39);
+            label2.Location = new Point(702, 26);
             label2.Name = "label2";
             label2.Size = new Size(123, 21);
             label2.TabIndex = 2;
@@ -66,10 +70,10 @@
             // txtBuscar
             // 
             txtBuscar.Font = new Font("Segoe UI", 14F);
-            txtBuscar.Location = new Point(702, 63);
+            txtBuscar.Location = new Point(702, 50);
             txtBuscar.Multiline = true;
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.PlaceholderText = "Título,Etiqueta/s";
+            txtBuscar.PlaceholderText = "Título, Código compartido";
             txtBuscar.ScrollBars = ScrollBars.Horizontal;
             txtBuscar.Size = new Size(329, 35);
             txtBuscar.TabIndex = 3;
@@ -136,7 +140,7 @@
             dataGriedListaNotas.ReadOnly = true;
             dataGriedListaNotas.RowHeadersVisible = false;
             dataGriedListaNotas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGriedListaNotas.Size = new Size(1000, 449);
+            dataGriedListaNotas.Size = new Size(1000, 423);
             dataGriedListaNotas.TabIndex = 7;
             // 
             // panel1
@@ -144,7 +148,7 @@
             panel1.Controls.Add(dataGriedListaNotas);
             panel1.Location = new Point(31, 128);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1000, 449);
+            panel1.Size = new Size(1000, 423);
             panel1.TabIndex = 8;
             // 
             // btnVista
@@ -163,10 +167,65 @@
             btnVista.UseVisualStyleBackColor = false;
             btnVista.Click += btnVista_Click;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(0, 192, 192);
+            button1.Cursor = Cursors.Hand;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 6.5F, FontStyle.Bold);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(879, 91);
+            button1.Name = "button1";
+            button1.Size = new Size(152, 20);
+            button1.TabIndex = 10;
+            button1.Text = "Buscar por código compartido";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
+            radioButton1.Location = new Point(31, 557);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(145, 19);
+            radioButton1.TabIndex = 11;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Mostrar notas privadas";
+            radioButton1.UseVisualStyleBackColor = true;
+            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
+            // 
+            // radioButton4
+            // 
+            radioButton4.AutoSize = true;
+            radioButton4.Location = new Point(192, 557);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(145, 19);
+            radioButton4.TabIndex = 14;
+            radioButton4.Text = "Mostrar notas públicas";
+            radioButton4.UseVisualStyleBackColor = true;
+            radioButton4.CheckedChanged += radioButton4_CheckedChanged;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(361, 557);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(167, 19);
+            radioButton2.TabIndex = 15;
+            radioButton2.Text = "Mostrar notas compartidas";
+            radioButton2.UseVisualStyleBackColor = true;
+            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
+            // 
             // UCListaNotas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(radioButton2);
+            Controls.Add(radioButton4);
+            Controls.Add(radioButton1);
+            Controls.Add(button1);
             Controls.Add(btnVista);
             Controls.Add(panel1);
             Controls.Add(btnRecargar);
@@ -194,5 +253,9 @@
         public DataGridView dataGriedListaNotas;
         private Panel panel1;
         private Button btnVista;
+        private Button button1;
+        private RadioButton radioButton1;
+        private RadioButton radioButton4;
+        private RadioButton radioButton2;
     }
 }

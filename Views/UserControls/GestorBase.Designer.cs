@@ -41,6 +41,8 @@
             PanelLateralTitulo = new Panel();
             LabelTitulo = new Label();
             PanelMain = new Panel();
+            lblNombreUsuario = new Label();
+            label2 = new Label();
             PanelLateralIzquierdo.SuspendLayout();
             PanelLateralContenedorDeBotonesYMas.SuspendLayout();
             PanelLateralBotones.SuspendLayout();
@@ -147,7 +149,8 @@
             // PanelLateralSeccionAbajo
             // 
             PanelLateralSeccionAbajo.BackColor = Color.FromArgb(49, 69, 88);
-            PanelLateralSeccionAbajo.Controls.Add(label1);
+            PanelLateralSeccionAbajo.Controls.Add(label2);
+            PanelLateralSeccionAbajo.Controls.Add(lblNombreUsuario);
             PanelLateralSeccionAbajo.Controls.Add(btnCerrarSesion);
             PanelLateralSeccionAbajo.Dock = DockStyle.Bottom;
             PanelLateralSeccionAbajo.Location = new Point(0, 544);
@@ -159,11 +162,11 @@
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label1.Font = new Font("Segoe UI", 6F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(22, 121);
+            label1.Location = new Point(59, 82);
             label1.Name = "label1";
-            label1.Size = new Size(170, 19);
+            label1.Size = new Size(92, 11);
             label1.TabIndex = 1;
             label1.Text = "Elaborado por Lexor_12";
             // 
@@ -186,6 +189,7 @@
             // 
             PanelLateralTitulo.BackColor = Color.FromArgb(49, 69, 88);
             PanelLateralTitulo.Controls.Add(LabelTitulo);
+            PanelLateralTitulo.Controls.Add(label1);
             PanelLateralTitulo.Dock = DockStyle.Top;
             PanelLateralTitulo.Location = new Point(0, 0);
             PanelLateralTitulo.Name = "PanelLateralTitulo";
@@ -211,6 +215,30 @@
             PanelMain.Name = "PanelMain";
             PanelMain.Size = new Size(1060, 720);
             PanelMain.TabIndex = 1;
+            // 
+            // lblNombreUsuario
+            // 
+            lblNombreUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lblNombreUsuario.AutoSize = true;
+            lblNombreUsuario.Font = new Font("Yu Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblNombreUsuario.ForeColor = Color.White;
+            lblNombreUsuario.Location = new Point(82, 128);
+            lblNombreUsuario.Name = "lblNombreUsuario";
+            lblNombreUsuario.Size = new Size(44, 17);
+            lblNombreUsuario.TabIndex = 5;
+            lblNombreUsuario.Text = "Pedro";
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(68, 95);
+            label2.Name = "label2";
+            label2.Size = new Size(73, 21);
+            label2.TabIndex = 6;
+            label2.Text = "Usuario:";
             // 
             // GestorBase
             // 
@@ -246,5 +274,7 @@
         private Label LabelTitulo;
         private Button btnCerrarSesion;
         private Label label1;
+        private Label label2;
+        private Label lblNombreUsuario;
     }
 }
