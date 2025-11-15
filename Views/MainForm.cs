@@ -36,7 +36,7 @@ namespace AkNotes
             {
                 if (!esIngresoUsername(modo.txtUsuario.Text))
                 {
-                    MessageBox.Show("Error, el nombre de ususario debe ser mayor a 5 caracteres y solo puede contener letras.");
+                    MessageBox.Show("Error, el nombre de ususario debe ser mayor a 5 caracteres y solo puede contener letras,números, '@' o '_'.");
                     return;
                 }
                 if (!esIngresoContraseña(modo.txtContrasena.Text))
@@ -117,7 +117,7 @@ namespace AkNotes
             {
                 if (!esIngresoUsername(modo.txtUsuario.Text))
                 {
-                    MessageBox.Show("Error, el nombre de ususario debe ser mayor a 5 caracteres y solo puede contener letras.");
+                    MessageBox.Show("Error, el nombre de ususario debe ser mayor a 5 caracteres y solo puede contener letras,números, '@' o '_'.");
                     return;
                 }
                 if (!esIngresoContraseña(modo.txtContrasena.Text))
@@ -130,11 +130,15 @@ namespace AkNotes
                     MessageBox.Show("Error, ese nombré de usuario ya existe.");
                     return;
                 }
+                if(modo.txtContrasena.Text != modo.txtConfirmarContrasena.Text)
+                {
+                    MessageBox.Show("Error, la contraseña no es igual en ambos campos de contraseña.");
+                }
                 else
                 {
                     UsuarioDBManager.CrearUsuario(modo.txtUsuario.Text, modo.txtContrasena.Text);
+                    MostrarPantallaLogin();
                 }
-                MostrarPantallaLogin();
             }
             catch (Exception ex)
             {

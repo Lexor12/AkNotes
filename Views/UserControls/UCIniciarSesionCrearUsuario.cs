@@ -33,7 +33,7 @@ namespace AkNotes.Views.UserControls
         private Label lblContrasena;
         private Button btnAceptar;
         private Label lblConfirmarContrasena;
-        private TextBox txtConfirmarContrasena;
+        public TextBox txtConfirmarContrasena;
         public UIUCIniciarSesionCrearUsuarioOpciones modoActual;
         public UCIniciarSesionCrearUsuario(UIUCIniciarSesionCrearUsuarioOpciones modo)
         {
