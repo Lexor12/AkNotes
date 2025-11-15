@@ -8,7 +8,7 @@
 
 ### ✨ Vista previa
 <p align="center">
-  <img src="images/capEjemploPrimero.png" alt="capEjemploPrimero" width="700"/>
+  <img src="images/cap3.png" alt="Captura de ejemplo" width="700"/>
 </p>
 
 ---
@@ -83,15 +83,6 @@ git clone https://github.com/tuusuario/AkNotes.git
 <br>
 <img src="images/cap17.png" alt="Captura 17" width="700"/>
 <br>
-<img src="images/cap18.png" alt="Captura 18" width="700"/>
-<br>
-<img src="images/cap19.png" alt="Captura 19" width="700"/>
-<br>
-<img src="images/cap20.png" alt="Captura 20" width="700"/>
-<br>
-<img src="images/cap21.png" alt="Captura 21" width="700"/>
-<br>
-<img src="images/cap22.png" alt="Captura 22" width="700"/>
 
 </p>
 
