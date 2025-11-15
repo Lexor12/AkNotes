@@ -125,7 +125,7 @@
             lblFecha.Name = "lblFecha";
             lblFecha.Size = new Size(318, 37);
             lblFecha.TabIndex = 7;
-            lblFecha.Text = "11/11/2025 01:34:27 p. m.";
+            lblFecha.Text = DateTime.Now.ToString();
             // 
             // UCInicio
             // 

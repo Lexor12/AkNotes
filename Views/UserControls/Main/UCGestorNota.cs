@@ -39,6 +39,8 @@ namespace AkNotes.Views.UserControls.Main
             dgListaUsuarios.DataSource = Usuarios;
             if (modo == UCGestorNotaOpciones.Ver) VistaDetalladaModo();
             else if (modo == UCGestorNotaOpciones.Editar) EditarModo();
+            lblFechaCreacion.Text = DateTime.Now.ToString();
+            lblFechaEdicion.Text = DateTime.Now.ToString();
         }//Mady by Lexor_12 || kennygamer17 on github
         private void VistaDetalladaModo()
         {

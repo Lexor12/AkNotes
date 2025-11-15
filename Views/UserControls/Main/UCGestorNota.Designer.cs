@@ -183,7 +183,7 @@
             lblFechaCreacion.Name = "lblFechaCreacion";
             lblFechaCreacion.Size = new Size(266, 28);
             lblFechaCreacion.TabIndex = 8;
-            lblFechaCreacion.Text = "11/11/2025 01:44:32 p. m.";
+            
             // 
             // lblFechaEdicion
             // 
@@ -194,7 +194,7 @@
             lblFechaEdicion.Name = "lblFechaEdicion";
             lblFechaEdicion.Size = new Size(266, 28);
             lblFechaEdicion.TabIndex = 9;
-            lblFechaEdicion.Text = "11/11/2025 01:44:32 p. m.";
+            lblFechaEdicion.Text = DateTime.Now.ToString();
             // 
             // btnAceptar
             // 
